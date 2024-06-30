@@ -67,5 +67,11 @@ fun RecipeCard(recipe: Recipe, modifier: Modifier) {
 @Composable
 @Preview
 fun RecipeCardPreview() {
-    RecipeCard(recipe = defaultRecipes[0], modifier = Modifier.padding(16.dp))
+    val previewRecipe = Recipe(
+        imageResource = R.drawable.noodles,
+        title = "Ramen",
+        ingredients = listOf("Noodles", "Eggs", "Mushrooms", "Carrots", "Soy sauce"),
+        description = "Japan’s famous noodles-and-broth dish. It’s meant to be slurped LOUDLY."
+    )
+    RecipeCard(previewRecipe, Modifier.padding(16.dp))
 }

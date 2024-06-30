@@ -7,12 +7,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
-fun RecipeList(recipes: List<Recipe>) {
+fun RecipeList(viewModel: RecipeListViewModel) {
+    // Convert the flow (of MutableStateList) into a State
+    val recipeListState = viewModel.recipeListFlow.collectAsStateWithLifecycle()
+
     LazyColumn {
-        items(recipes) {
-            RecipeCard(it, Modifier.padding(16.dp))
+        items(recipeListState.value) {
+            RecipeCard(it, Modifier.padding(16.dp)) // Added a modifier argument here
         }
     }
 }
@@ -20,5 +24,6 @@ fun RecipeList(recipes: List<Recipe>) {
 @Composable
 @Preview
 fun RecipeListPreview() {
-    RecipeList(defaultRecipes)
+    val viewModel = RecipeListViewModel()
+    RecipeList(viewModel = viewModel)
 }
